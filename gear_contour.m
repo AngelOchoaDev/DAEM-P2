@@ -80,8 +80,7 @@ function varargout = addendum_button_Callback(h, eventdata, handles, varargin)
 % Written by Shih-Liang (Sid) Wang	6/24/98
 % ----------------------------------------------------------------------------
 %The parameters of gear
-% n=10;			%The number of teeth
-% pd=6;			%The diametral pitch
+% n=10;			%The number of teeth pd=6;			%The diametral pitch
 n=str2double(get(handles.edit1,'string'));
 pd=str2double(get(handles.edit2,'string'));			%The diametral pitch
 phi_d=20;	%The pressure angle in degrees 
@@ -113,8 +112,11 @@ for i=1:n1;
 	r=do/2-(do-db)*(i-1)/(2*(n1-1));
 	pha=acos(db/(2*r));
 	t=2*r*(tp/d+(tan(phi)-phi)-(tan(pha)-pha));	%tooth tickness at any angle phi
-																%involute equation - 
-																%refer to Shigley's book
+																%involute
+																%equation -
+																%refer to
+																%Shigley's
+																%book
 	theta(i)=t/(2*r);
 	xp(i)=r*sin(theta(i));		%change from polar coordinates to cartesian coordinates
 	yp(i)=r*cos(theta(i));
@@ -130,13 +132,14 @@ for i=1:n2;
 end
 xo=xo';yo=yo';
 % ----------------------------------------------------------------------------
-%To calculate the non-involute portion of the curve- between the base circle and 
-% dedendum circle - in this case, a straight line parallel to the y axis and connects 
-% to the fillet arc
+%To calculate the non-involute portion of the curve- between the base
+%circle and
+% dedendum circle - in this case, a straight line parallel to the y axis
+% and connects to the fillet arc
 for i=1:3;
 	theta0=asin((xp(1,n1)+r_fillet)/(dr/2)); 
-%to find the angle between the central line (y-axis) and the line from the center 
-%to the last point of the involute curve.
+%to find the angle between the central line (y-axis) and the line from the
+%center to the last point of the involute curve.
 	xr(i)=xp(1,10);
 	yr(i)=yp(1,10)-(yp(1,10)-r_fillet-(dr/2)*cos(theta0))*i/3;
 end
@@ -153,8 +156,8 @@ end
 xro=xro';yro=yro';
 % ----------------------------------------------------------------------------
 %To calculate fillet
-% to draw the quarter of a circle from the last point of the non-involute part to 
-% the tangent of the dedenum circle.
+% to draw the quarter of a circle from the last point of the non-involute
+% part to the tangent of the dedenum circle.
 n4=5;
 for i=1:n4;
    xf(i)=xro(1)-r_fillet*cos((i-1)*pi/(2*n4-2));
@@ -187,9 +190,9 @@ for i=1:n;
 end
 M=[M,h(:,1)]; %add the first point, so the curve returns to the original point
 % ----------------------------------------------------------------------------
-%plot (g(1,:),g(2,:))	%plot one-half tooth
-%plot (h(1,:),h(2,:))	%plot one tooth
-%plot (M(1,:),M(2,:))	%plot the whole gear - the first row (x) and second row (y)
+%plot (g(1,:),g(2,:))	%plot one-half tooth plot (h(1,:),h(2,:))	%plot
+%one tooth plot (M(1,:),M(2,:))	%plot the whole gear - the first row (x)
+%and second row (y)
 plot (g(1,:),g(2,:),'-.b',xo,yo,'-r', 'linewidth',4)  %plot one-half tooth, the addendum part is red
 axis('equal')
 M=M';						%transpose the matrix to get only two columns, 

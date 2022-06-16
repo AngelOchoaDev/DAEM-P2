@@ -19,9 +19,6 @@ elseif strcmp(inputArg1{1,3},'y')==1
         inputArg1{1,1}*[0*z 2*z/3 2*z/3 z] + inputArg2(1,2),...
         inputArg1{1,1}*[y y 2*y 0*y] + inputArg2(1,3));
 end
-xlabel('Eje X');
-ylabel('Eje Y');
-zlabel('Eje Z');
 axis xy; grid on; view(130,30);
 shading interp; colormap('jet');
 
